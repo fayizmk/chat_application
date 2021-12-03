@@ -26,7 +26,7 @@
     "format:lint": "npm run format && npm run lint",
     "clear": "rimraf build"
   },
-  "eslintConfig": {
+ "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
