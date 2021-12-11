@@ -14,11 +14,7 @@ const PrivateRoute = ({ children, ...routeProps }) => {
     );
   }
 
-  if (profile && !isLoading) {
-    return <Redirect to="/signin" />;
-  }
-
-  if (profile) {
+  if (!isLoading && profile) {
     return <Redirect to="/home" />;
   }
 
