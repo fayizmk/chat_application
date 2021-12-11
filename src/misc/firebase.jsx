@@ -7,6 +7,9 @@ const config = {
 
   authDomain: 'chat-web-app-7d894.firebaseapp.com',
 
+  databaseURL:
+    'https://chat-web-app-7d894-default-rtdb.asia-southeast1.firebasedatabase.app',
+
   projectId: 'chat-web-app-7d894',
 
   storageBucket: 'chat-web-app-7d894.appspot.com',

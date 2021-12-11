@@ -5,14 +5,11 @@ import { auth, database } from '../misc/firebase';
 
 const Signin = () => {
   const signInWithProvider = async provider => {
-    const cra = await auth.signInWithPopup(provider);
-    console.log('result', cra);
-
     try {
-      const [additionalUserInfo, user] = auth.signInWithPopup(provider);
+      const { additionalUserInfo, user } = await auth.signInWithPopup(provider);
 
       if (additionalUserInfo.isNewUser) {
-        await database.ref(`/profiles/${user.id}`).set({
+        await database.ref(`/profiles/${user.uid}`).set({
           name: user.displayName,
           createdAt: firebase.database.ServerValue.TIMESTAMP,
         });
@@ -20,7 +17,7 @@ const Signin = () => {
 
       Alert.success('signed in', 4000);
     } catch (err) {
-      Alert.info(err.message, 4000);
+      Alert.error(err.message, 4000);
     }
   };
 
