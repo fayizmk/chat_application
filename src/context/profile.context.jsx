@@ -27,8 +27,6 @@ export const ProfileProvider = ({ children }) => {
         userStatusFirestoreRef = database.ref(`/status/${authObj.uid}`);
         userRef = database.ref(`/profiles/${authObj.uid}`);
 
-        console.log(userRef);
-
         userRef.on('value', snap => {
           const { name, createdAt, avatar } = snap.val();
 
@@ -45,7 +43,7 @@ export const ProfileProvider = ({ children }) => {
         });
 
         database.ref('.info/connected').on('value', snapshot => {
-          if (snapshot.val() === false) {
+          if (!!snapshot.val() === false) {
             return;
           }
 
