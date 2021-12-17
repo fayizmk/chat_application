@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Alert } from 'rsuite';
 import { auth, database, storage } from '../../../misc/firebase';
-import { transformToArrayWithId } from '../../../misc/helpers';
+import { groupBy, transformToArrayWithId } from '../../../misc/helpers';
 import MessageItem from './MessageItem';
 
 const Messages = () => {
@@ -82,7 +82,6 @@ const Messages = () => {
 
   const handleDelete = useCallback(
     async (msgId, file) => {
-      console.log(file);
       // eslint-disable-next-line no-alert
       if (!window.confirm('Delete this message?')) {
         return;
@@ -121,19 +120,39 @@ const Messages = () => {
     [chatId, message]
   );
 
+  const renderMessages = () => {
+    const groups = groupBy(message, item =>
+      new Date(item.createdAt).toDateString()
+    );
+
+    const items = [];
+
+    Object.keys(groups).forEach(date => {
+      items.push(
+        <li key={date} className="text-center mb-1 padded">
+          {date}
+        </li>
+      );
+      const msgs = groups[date].map(msg => (
+        <MessageItem
+          key={msg.id}
+          messages={msg}
+          handleAdmin={handleAdmin}
+          handleLike={handleLike}
+          handleDelete={handleDelete}
+        />
+      ));
+
+      items.push(...msgs);
+    });
+
+    return items;
+  };
+
   return (
     <ul className="msg-list custom-scroll">
       {isChatEmpty && <li>No messages Yet</li>}
-      {canShowMessages &&
-        message.map(msg => (
-          <MessageItem
-            key={msg.id}
-            messages={msg}
-            handleAdmin={handleAdmin}
-            handleLike={handleLike}
-            handleDelete={handleDelete}
-          />
-        ))}
+      {canShowMessages && renderMessages()}
     </ul>
   );
 };
