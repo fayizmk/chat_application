@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge, Icon, IconButton, Whisper } from 'rsuite';
+import { Badge, Icon, IconButton, Tooltip, Whisper } from 'rsuite';
 
 const ConditionalBadge = ({ condition, children }) => {
   return condition ? <Badge content={condition}>{children} </Badge> : children;
@@ -25,7 +25,7 @@ const IconBtnControl = ({
           delayHide={0}
           delayShow={0}
           trigger="hover"
-          speaker={<toolTip>{toolTip}</toolTip>}
+          speaker={<Tooltip>{toolTip}</Tooltip>}
         >
           <IconButton
             {...props}
