@@ -20,7 +20,7 @@ const renderFileMessage = file => {
     );
   }
 
-  return <a href={file.url}>Download [file.name]</a>;
+  return <a href={file.url}>Download {file.name}</a>;
 };
 
 const MessageItem = ({ messages, handleAdmin, handleLike, handleDelete }) => {
