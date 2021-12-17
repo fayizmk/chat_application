@@ -46,7 +46,7 @@ const AttachmentBtnModal = ({ afterUpload }) => {
       const files = await Promise.all(shapePromises);
       await afterUpload(files);
 
-      setFileList(false);
+      setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
       Alert.error(err.message, 4000);
